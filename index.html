@@ -235,144 +235,156 @@
     </nav>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="relative z-10 pt-28 px-4 sm:px-6 pb-20 max-w-7xl mx-auto">
+    <main class="relative z-10 pt-28 px-4 sm:px-6 pb-8 max-w-7xl mx-auto flex flex-col min-h-screen">
         
-        <!-- SECCIÓN: INICIO (HERO DIVIDIDO CON VIDEO) -->
-        <section id="sec-inicio" class="section-container block py-12 md:py-20">
-            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-                
-                <!-- Textos Hero -->
-                <div class="w-full lg:w-1/2 text-center lg:text-left reveal active">
-                    <div class="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-[11px] font-extrabold tracking-[0.2em] uppercase">
-                        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
-                        <span data-i18n="hero_badge">Soporte a Domicilio</span>
-                    </div>
+        <div class="flex-grow">
+            <!-- SECCIÓN: INICIO (HERO DIVIDIDO CON VIDEO) -->
+            <section id="sec-inicio" class="section-container block py-12 md:py-20">
+                <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
                     
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-brand-navy dark:text-white font-tech mb-6 tracking-tight leading-tight">
-                        <span data-i18n="hero_title_1">¿Tu compu</span> <br><span data-i18n="hero_title_2">está lenta o</span> <span class="text-brand-orange" data-i18n="hero_title_3">falla tu Wi-Fi?</span>
-                    </h1>
-                    
-                    <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl mb-10 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0" data-i18n="hero_desc">
-                        ¡No desconectes nada! Voy directo a tu casa u oficina a solucionar problemas técnicos. Rápido, seguro y sin palabras complicadas.
-                    </p>
+                    <!-- Textos Hero -->
+                    <div class="w-full lg:w-1/2 text-center lg:text-left reveal active">
+                        <div class="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                            <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                            <span data-i18n="hero_badge">Soporte a Domicilio</span>
+                        </div>
+                        
+                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-brand-navy dark:text-white font-tech mb-6 tracking-tight leading-tight">
+                            <span data-i18n="hero_title_1">¿Tu compu</span> <br><span data-i18n="hero_title_2">está lenta o</span> <span class="text-brand-orange" data-i18n="hero_title_3">falla tu Wi-Fi?</span>
+                        </h1>
+                        
+                        <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl mb-10 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0" data-i18n="hero_desc">
+                            ¡No desconectes nada! Voy directo a tu casa u oficina a solucionar problemas técnicos. Rápido, seguro y sin palabras complicadas.
+                        </p>
 
-                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                        <button onclick="navigate('servicios')" class="btn-action btn-primary animate-glow">
-                            <i data-lucide="zap" class="w-5 h-5"></i> <span data-i18n="hero_btn_1">Solucionar Ahora</span>
-                        </button>
-                        <button onclick="navigate('contacto')" class="btn-action btn-secondary">
-                            <i data-lucide="map-pin" class="w-5 h-5"></i> <span data-i18n="hero_btn_2">Ver Zonas</span>
-                        </button>
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                            <button onclick="navigate('servicios')" class="btn-action btn-primary animate-glow">
+                                <i data-lucide="zap" class="w-5 h-5"></i> <span data-i18n="hero_btn_1">Solucionar Ahora</span>
+                            </button>
+                            <button onclick="navigate('contacto')" class="btn-action btn-secondary">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i> <span data-i18n="hero_btn_2">Ver Zonas</span>
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- Video Loop Hero -->
+                    <div class="w-full lg:w-1/2 reveal active delay-200 mt-8 lg:mt-0">
+                        <div class="video-container animate-float mx-auto w-full max-w-2xl lg:max-w-full">
+                            <div class="video-wrapper relative w-full aspect-video shadow-2xl">
+                                <!-- Video 16:9 Optimizado -->
+                                <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                                    <source src="video_portada.mp4" type="video/mp4">
+                                    <img src="logo.png" alt="Tech Xidito Mascota" class="w-full h-full object-cover opacity-80">
+                                </video>
+                                
+                                <!-- Etiqueta flotante estética adaptativa -->
+                                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 dark:bg-black/70 backdrop-blur-md border border-slate-200 dark:border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 sm:gap-3 shadow-lg z-10">
+                                    <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span class="text-[10px] sm:text-xs font-bold text-brand-navy dark:text-white font-tech tracking-wider" data-i18n="system_status">SISTEMA ONLINE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECCIÓN: SERVICIOS -->
+            <section id="sec-servicios" class="section-container hidden py-12">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-4 tracking-tight"><span data-i18n="srv_title_1">Servicios</span> <span class="text-brand-orange" data-i18n="srv_title_2">Residenciales</span></h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium" data-i18n="srv_subtitle">Soluciones prácticas para tu hogar o home office.</p>
+                </div>
+                
+                <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Inyectado vía JS -->
                 </div>
 
-                <!-- Video Loop Hero -->
-                <div class="w-full lg:w-1/2 reveal active delay-200 mt-8 lg:mt-0">
-                    <div class="video-container animate-float mx-auto w-full max-w-2xl lg:max-w-full">
-                        <div class="video-wrapper relative w-full aspect-video shadow-2xl">
-                            <!-- Video 16:9 Optimizado -->
-                            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
-                                <source src="video_portada.mp4" type="video/mp4">
-                                <img src="logo.png" alt="Tech Xidito Mascota" class="w-full h-full object-cover opacity-80">
-                            </video>
-                            
-                            <!-- Etiqueta flotante estética adaptativa -->
-                            <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 dark:bg-black/70 backdrop-blur-md border border-slate-200 dark:border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 sm:gap-3 shadow-lg z-10">
-                                <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="text-[10px] sm:text-xs font-bold text-brand-navy dark:text-white font-tech tracking-wider" data-i18n="system_status">SISTEMA ONLINE</span>
+                <!-- Modal -->
+                <div id="service-modal" class="fixed inset-0 z-[1100] hidden items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity">
+                    <div class="relative w-full max-w-xl bg-white dark:bg-brand-surfacedark border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-2xl">
+                        <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-brand-orange transition-colors">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                        <div class="flex flex-col items-center text-center gap-6">
+                            <div id="modal-icon-container" class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center text-brand-orange border border-brand-orange/20"></div>
+                            <div class="w-full">
+                                <h3 id="modal-title" class="text-2xl font-black text-brand-navy dark:text-white font-tech mb-4"></h3>
+                                <p id="modal-desc" class="text-slate-600 dark:text-slate-300 text-base font-medium mb-6 leading-relaxed"></p>
+                                <div id="modal-details" class="space-y-3 mb-8 text-left w-full"></div>
+                                <a id="modal-cta" href="#" target="_blank" class="btn-action btn-primary w-full justify-center text-sm">
+                                    <i data-lucide="message-circle"></i> <span data-i18n="modal_btn">Agendar por WhatsApp</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
-
-        <!-- SECCIÓN: SERVICIOS -->
-        <section id="sec-servicios" class="section-container hidden py-12">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-4 tracking-tight"><span data-i18n="srv_title_1">Servicios</span> <span class="text-brand-orange" data-i18n="srv_title_2">Residenciales</span></h2>
-                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium" data-i18n="srv_subtitle">Soluciones prácticas para tu hogar o home office.</p>
-            </div>
-            
-            <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Inyectado vía JS -->
-            </div>
-
-            <!-- Modal -->
-            <div id="service-modal" class="fixed inset-0 z-[1100] hidden items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity">
-                <div class="relative w-full max-w-xl bg-white dark:bg-brand-surfacedark border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-2xl">
-                    <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-brand-orange transition-colors">
-                        <i data-lucide="x" class="w-6 h-6"></i>
-                    </button>
-                    <div class="flex flex-col items-center text-center gap-6">
-                        <div id="modal-icon-container" class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center text-brand-orange border border-brand-orange/20"></div>
-                        <div class="w-full">
-                            <h3 id="modal-title" class="text-2xl font-black text-brand-navy dark:text-white font-tech mb-4"></h3>
-                            <p id="modal-desc" class="text-slate-600 dark:text-slate-300 text-base font-medium mb-6 leading-relaxed"></p>
-                            <div id="modal-details" class="space-y-3 mb-8 text-left w-full"></div>
-                            <a id="modal-cta" href="#" target="_blank" class="btn-action btn-primary w-full justify-center text-sm">
-                                <i data-lucide="message-circle"></i> <span data-i18n="modal_btn">Agendar por WhatsApp</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN: PROCESO -->
-        <section id="sec-proceso" class="section-container hidden py-12">
-            <h2 class="text-4xl text-center font-black text-brand-navy dark:text-white mb-16 font-tech tracking-tight reveal"><span data-i18n="proc_title_1">¿Cómo</span> <span class="text-brand-orange" data-i18n="proc_title_2">Funciona?</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-xl text-center reveal">
-                    <div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-brand-orange border border-brand-orange/20">
-                        <i data-lucide="smartphone" class="w-8 h-8"></i>
-                    </div>
-                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_1_title">1. Agenda Fácil</h4>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_1_desc">Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-xl text-center reveal delay-100">
-                    <div class="w-16 h-16 bg-blue-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-blue-500 dark:text-brand-orange border border-blue-100 dark:border-brand-orange/20">
-                        <i data-lucide="car" class="w-8 h-8"></i>
-                    </div>
-                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_2_title">2. Voy a tu Casa</h4>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_2_desc">Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-xl text-center reveal delay-200">
-                    <div class="w-16 h-16 bg-emerald-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-emerald-500 dark:text-brand-orange border border-emerald-100 dark:border-brand-orange/20">
-                        <i data-lucide="check-circle" class="w-8 h-8"></i>
-                    </div>
-                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_3_title">3. Todo Resuelto</h4>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_3_desc">Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN: CONTACTO / COBERTURA -->
-        <section id="sec-contacto" class="section-container hidden max-w-4xl mx-auto py-12 text-center">
-            <div class="glass-card p-12 md:p-16 rounded-3xl reveal border-brand-orange/20">
-                <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-8"><span data-i18n="cov_title_1">Zonas de</span> <span class="text-brand-orange" data-i18n="cov_title_2">Cobertura</span></h2>
+            <!-- SECCIÓN: PROCESO -->
+            <section id="sec-proceso" class="section-container hidden py-12">
+                <h2 class="text-4xl text-center font-black text-brand-navy dark:text-white mb-16 font-tech tracking-tight reveal"><span data-i18n="proc_title_1">¿Cómo</span> <span class="text-brand-orange" data-i18n="proc_title_2">Funciona?</span></h2>
                 
-                <div class="mb-12 space-y-4">
-                    <div class="inline-flex items-center gap-3 px-5 py-2 bg-brand-orange/10 border border-brand-orange/30 rounded-lg text-brand-orange font-bold text-xs tracking-widest">
-                        <i data-lucide="map" class="w-4 h-4"></i> <span data-i18n="cov_badge">QUERÉTARO METROPOLITANO</span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-xl text-center reveal">
+                        <div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-brand-orange border border-brand-orange/20">
+                            <i data-lucide="smartphone" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_1_title">1. Agenda Fácil</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_1_desc">Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.</p>
                     </div>
-                    <p class="text-brand-navy dark:text-white font-bold text-2xl uppercase font-tech tracking-tight mt-4" data-i18n="cov_subtitle">Servicio a Domicilio</p>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg font-medium max-w-lg mx-auto leading-relaxed" data-i18n="cov_desc">
-                        Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.
-                    </p>
-                </div>
 
-                <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto">
-                    <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
-                </a>
-            </div>
-        </section>
+                    <div class="glass-card p-8 rounded-xl text-center reveal delay-100">
+                        <div class="w-16 h-16 bg-blue-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-blue-500 dark:text-brand-orange border border-blue-100 dark:border-brand-orange/20">
+                            <i data-lucide="car" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_2_title">2. Voy a tu Casa</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_2_desc">Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-xl text-center reveal delay-200">
+                        <div class="w-16 h-16 bg-emerald-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-emerald-500 dark:text-brand-orange border border-emerald-100 dark:border-brand-orange/20">
+                            <i data-lucide="check-circle" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_3_title">3. Todo Resuelto</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_3_desc">Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: CONTACTO / COBERTURA -->
+            <section id="sec-contacto" class="section-container hidden max-w-4xl mx-auto py-12 text-center">
+                <div class="glass-card p-12 md:p-16 rounded-3xl reveal border-brand-orange/20">
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-8"><span data-i18n="cov_title_1">Zonas de</span> <span class="text-brand-orange" data-i18n="cov_title_2">Cobertura</span></h2>
+                    
+                    <div class="mb-12 space-y-4">
+                        <div class="inline-flex items-center gap-3 px-5 py-2 bg-brand-orange/10 border border-brand-orange/30 rounded-lg text-brand-orange font-bold text-xs tracking-widest">
+                            <i data-lucide="map" class="w-4 h-4"></i> <span data-i18n="cov_badge">QUERÉTARO METROPOLITANO</span>
+                        </div>
+                        <p class="text-brand-navy dark:text-white font-bold text-2xl uppercase font-tech tracking-tight mt-4" data-i18n="cov_subtitle">Servicio a Domicilio</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg font-medium max-w-lg mx-auto leading-relaxed" data-i18n="cov_desc">
+                            Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.
+                        </p>
+                    </div>
+
+                    <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto">
+                        <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-16 border-t border-slate-200 dark:border-white/10 pt-8 pb-4 text-center text-sm font-medium text-slate-500 dark:text-slate-400">
+            <span data-i18n="footer_made_by">Realizado por</span> <a href="https://estudio.xidito.com/" target="_blank" class="text-brand-orange hover:text-brand-orangedark dark:hover:text-white transition-colors font-bold">estudio.xidito.com</a>
+        </footer>
 
     </main>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a id="btn-whatsapp-float" href="https://wa.me/524421260133" target="_blank" class="fixed bottom-20 right-4 sm:right-6 z-[900] bg-[#25D366] text-white p-3 sm:p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:scale-110 hover:bg-[#1ebe5d] transition-transform duration-300 flex items-center justify-center animate-bounce group">
+        <i data-lucide="message-circle" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+    </a>
 
     <!-- BARRA DE TAREAS ESTILO WINDOWS -->
     <div class="taskbar">
@@ -417,7 +429,8 @@
                 proc_3_title: "3. Todo Resuelto", proc_3_desc: "Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.",
                 cov_title_1: "Zonas de", cov_title_2: "Cobertura", cov_badge: "QUERÉTARO METROPOLITANO", cov_subtitle: "Servicio a Domicilio",
                 cov_desc: "Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.",
-                cov_btn: "Cotizar Visita", task_locating: "Localizando...", task_online: "En línea", modal_btn: "Agendar por WhatsApp"
+                cov_btn: "Cotizar Visita", task_locating: "Localizando...", task_online: "En línea", modal_btn: "Agendar por WhatsApp",
+                footer_made_by: "Realizado por"
             },
             en: {
                 nav_home: "Home", nav_services: "Services", nav_process: "How it Works?", nav_coverage: "Coverage",
@@ -431,7 +444,8 @@
                 proc_3_title: "3. All Solved", proc_3_desc: "I check and configure everything on-site. I explain the solution clearly and functionally.",
                 cov_title_1: "Coverage", cov_title_2: "Zones", cov_badge: "QUERÉTARO METRO AREA", cov_subtitle: "Home Service",
                 cov_desc: "Serving Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) and extended areas (Juriquilla, Zibatá, El Marqués) with a travel fee.",
-                cov_btn: "Get a Quote", task_locating: "Locating...", task_online: "Online", modal_btn: "Book via WhatsApp"
+                cov_btn: "Get a Quote", task_locating: "Locating...", task_online: "Online", modal_btn: "Book via WhatsApp",
+                footer_made_by: "Made by"
             }
         };
 
@@ -515,10 +529,12 @@
             renderServices();
             refreshIcons();
             
-            // Actualizar el enlace de WhatsApp base
+            // Actualizar enlaces de WhatsApp
             const waBase = "https://wa.me/524421260133?text=";
             const waMsg = currentLang === 'es' ? "Hola,%20quisiera%20cotizar%20un%20servicio%20a%20domicilio." : "Hello,%20I%20would%20like%20to%20get%20a%20quote%20for%20home%20service.";
-            document.getElementById('btn-whatsapp-tech').href = waBase + waMsg;
+            const fullWaLink = waBase + waMsg;
+            document.getElementById('btn-whatsapp-tech').href = fullWaLink;
+            document.getElementById('btn-whatsapp-float').href = fullWaLink;
         }
 
         function toggleLang() {
@@ -663,11 +679,6 @@
             setInterval(updateTaskbar, 1000);
             updateTaskbar();
             detectLocation();
-            
-            // Checar preferencia del sistema para dark mode
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                toggleTheme(); // Inicia en oscuro si su compu está en oscuro
-            }
         });
         
     </script>
