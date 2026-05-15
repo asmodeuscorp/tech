@@ -239,7 +239,6 @@
     <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigate('inicio')">
-                <!-- LOGO CORREGIDO: Se retiró bg-black para permitir transparencia y se añadió efecto 3D hover -->
                 <img src="logo.png" alt="Tech Xidito Logo" class="h-12 w-auto object-contain rounded-full border border-brand-orange/30 shadow-[0_0_10px_rgba(255,102,0,0.3)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 animate-pulse-glow">
                 <span class="font-bold tracking-tight text-xl text-brand-navy dark:text-white font-tech hidden sm:block transition-transform duration-300 group-hover:translate-x-1">TECH <span class="text-brand-orange">XIDITO</span></span>
             </div>
@@ -404,7 +403,7 @@
                             </p>
                         </div>
 
-                        <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto shadow-[0_10px_30px_rgba(255,102,0,0.4)]">
+                        <a id="btn-whatsapp-tech" href="https://wa.me/524421260133?text=Hola,%20podrias%20darme%20mas%20informes%20del%20servicio%20de%20soporte%20para%20computadoras" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto shadow-[0_10px_30px_rgba(255,102,0,0.4)]">
                             <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
                         </a>
                     </div>
@@ -413,14 +412,20 @@
         </div>
 
         <!-- FOOTER -->
-        <footer class="mt-16 border-t border-slate-200 dark:border-white/10 pt-8 pb-4 text-center text-sm font-medium text-slate-500 dark:text-slate-400">
-            <span data-i18n="footer_made_by">Realizado por</span> <a href="https://estudio.xidito.com/" target="_blank" class="text-brand-orange hover:text-brand-orangedark dark:hover:text-white transition-colors font-bold">estudio.xidito.com</a>
+        <footer class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10 pb-6 text-center text-sm font-medium text-slate-500 dark:text-slate-400 flex flex-col items-center justify-center gap-4">
+            <!-- Logo animado en el footer -->
+            <a href="#" onclick="navigate('inicio'); return false;" class="group">
+                <img src="logo.png" alt="Tech Xidito Logo" class="h-14 w-auto object-contain rounded-full border border-brand-orange/30 shadow-[0_0_15px_rgba(255,102,0,0.2)] animate-float transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-[0_0_25px_rgba(255,102,0,0.5)]">
+            </a>
+            <div>
+                <span data-i18n="footer_made_by">Realizado por</span> <a href="https://estudio.xidito.com/" target="_blank" class="text-brand-orange hover:text-brand-orangedark dark:hover:text-white transition-colors font-bold">estudio.xidito.com</a>
+            </div>
         </footer>
 
     </main>
 
     <!-- BOTÓN FLOTANTE DE WHATSAPP -->
-    <a id="btn-whatsapp-float" href="https://wa.me/524421260133" target="_blank" class="fixed bottom-20 right-4 sm:right-6 z-[900] bg-[#25D366] text-white p-3 sm:p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:scale-110 hover:bg-[#1ebe5d] transition-transform duration-300 flex items-center justify-center animate-bounce group">
+    <a id="btn-whatsapp-float" href="https://wa.me/524421260133?text=Hola,%20podrias%20darme%20mas%20informes%20del%20servicio%20de%20soporte%20para%20computadoras" target="_blank" class="fixed bottom-20 right-4 sm:right-6 z-[900] bg-[#25D366] text-white p-3 sm:p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:scale-110 hover:bg-[#1ebe5d] transition-transform duration-300 flex items-center justify-center animate-bounce group">
         <i data-lucide="message-circle" class="w-6 h-6 sm:w-7 sm:h-7"></i>
     </a>
 
@@ -569,7 +574,7 @@
             
             // Actualizar enlaces de WhatsApp
             const waBase = "https://wa.me/524421260133?text=";
-            const waMsg = currentLang === 'es' ? "Hola,%20quisiera%20cotizar%20un%20servicio%20a%20domicilio." : "Hello,%20I%20would%20like%20to%20get%20a%20quote%20for%20home%20service.";
+            const waMsg = currentLang === 'es' ? "Hola,%20podrias%20darme%20mas%20informes%20del%20servicio%20de%20soporte%20para%20computadoras" : "Hello,%20could%20you%20give%20me%20more%20information%20about%20the%20computer%20support%20service";
             const fullWaLink = waBase + waMsg;
             document.getElementById('btn-whatsapp-tech').href = fullWaLink;
             document.getElementById('btn-whatsapp-float').href = fullWaLink;
