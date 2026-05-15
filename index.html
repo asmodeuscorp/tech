@@ -45,16 +45,22 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out infinite 2s',
                         'glow': 'glow 2s ease-in-out infinite alternate',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-30px) scale(1.05)' },
                         },
                         glow: {
                             '0%': { boxShadow: '0 0 10px rgba(255, 102, 0, 0.2)' },
                             '100%': { boxShadow: '0 0 30px rgba(255, 102, 0, 0.6)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 5px rgba(255, 102, 0, 0.5))' },
+                            '50%': { opacity: .8, filter: 'drop-shadow(0 0 15px rgba(255, 102, 0, 0.8))' },
                         }
                     }
                 }
@@ -71,34 +77,51 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Dinámico (Claro / Oscuro) */
+        /* Glassmorphism Dinámico con Perspectiva 3D */
         .glass-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0);
+            transform-style: preserve-3d;
         }
         .dark .glass-card {
             background: rgba(20, 20, 20, 0.7);
             border-color: rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+        
+        /* Efecto 3D al Hover */
         .glass-card:hover {
             border-color: #ff6600;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 102, 0, 0.15);
+            transform: perspective(1000px) translateY(-10px) rotateX(4deg) rotateY(-4deg);
+            box-shadow: -15px 25px 40px rgba(255, 102, 0, 0.15);
+            z-index: 20;
+        }
+        .dark .glass-card:hover {
+            box-shadow: -15px 25px 40px rgba(255, 102, 0, 0.3);
+        }
+
+        /* Contenido interno saltando en 3D */
+        .content-3d {
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateZ(0);
+        }
+        .glass-card:hover .content-3d {
+            transform: translateZ(40px);
         }
 
         /* Animaciones de scroll */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(40px) scale(0.95);
             transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* Barra de Tareas */
@@ -192,6 +215,11 @@
             border-radius: 2rem;
             padding: 4px;
             background: linear-gradient(135deg, #ff6600 0%, transparent 100%);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+        .video-container:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
         }
         .video-wrapper {
             border-radius: 1.8rem;
@@ -203,31 +231,32 @@
 </head>
 <body class="bg-brand-bglight dark:bg-brand-bgdark text-slate-700 dark:text-slate-300 transition-colors duration-300 font-sans">
 
-    <!-- LUCES DE FONDO (Se adaptan en JS) -->
-    <div id="bg-glow-1" class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-brand-orange/20 rounded-full blur-[120px] pointer-events-none z-0 transition-colors duration-500"></div>
-    <div id="bg-glow-2" class="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-orange-50 dark:bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none z-0 transition-colors duration-500"></div>
+    <!-- LUCES DE FONDO 3D (Se adaptan en JS y Flotan) -->
+    <div id="bg-glow-1" class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-brand-orange/20 rounded-full blur-[120px] pointer-events-none z-0 transition-colors duration-500 animate-float"></div>
+    <div id="bg-glow-2" class="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-orange-50 dark:bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none z-0 transition-colors duration-500 animate-float-delayed"></div>
 
     <!-- NAVEGACIÓN -->
     <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('inicio')">
-                <img src="logo.png" alt="Tech Xidito Logo" class="h-12 w-auto object-contain rounded-full border-2 border-brand-orange/50 bg-black">
-                <span class="font-bold tracking-tight text-xl text-brand-navy dark:text-white font-tech hidden sm:block">TECH <span class="text-brand-orange">XIDITO</span></span>
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="navigate('inicio')">
+                <!-- LOGO CORREGIDO: Se retiró bg-black para permitir transparencia y se añadió efecto 3D hover -->
+                <img src="logo.png" alt="Tech Xidito Logo" class="h-12 w-auto object-contain rounded-full border border-brand-orange/30 shadow-[0_0_10px_rgba(255,102,0,0.3)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 animate-pulse-glow">
+                <span class="font-bold tracking-tight text-xl text-brand-navy dark:text-white font-tech hidden sm:block transition-transform duration-300 group-hover:translate-x-1">TECH <span class="text-brand-orange">XIDITO</span></span>
             </div>
             
             <div class="hidden md:flex space-x-6 font-tech text-[11px] font-bold tracking-widest uppercase items-center">
-                <button onclick="navigate('inicio')" class="nav-link text-brand-orange" data-target="inicio" data-i18n="nav_home">Inicio</button>
-                <button onclick="navigate('servicios')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="servicios" data-i18n="nav_services">Servicios</button>
-                <button onclick="navigate('proceso')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="proceso" data-i18n="nav_process">¿Cómo Funciona?</button>
-                <button onclick="navigate('contacto')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="contacto" data-i18n="nav_coverage">Cobertura</button>
+                <button onclick="navigate('inicio')" class="nav-link text-brand-orange hover:scale-105 transition-transform" data-target="inicio" data-i18n="nav_home">Inicio</button>
+                <button onclick="navigate('servicios')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange hover:scale-105 transition-all" data-target="servicios" data-i18n="nav_services">Servicios</button>
+                <button onclick="navigate('proceso')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange hover:scale-105 transition-all" data-target="proceso" data-i18n="nav_process">¿Cómo Funciona?</button>
+                <button onclick="navigate('contacto')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange hover:scale-105 transition-all" data-target="contacto" data-i18n="nav_coverage">Cobertura</button>
                 
                 <div class="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-2"></div>
                 
                 <!-- Controles: Idioma y Tema -->
-                <button onclick="toggleLang()" class="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-brand-orange transition-colors" title="Cambiar Idioma">
+                <button onclick="toggleLang()" class="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-brand-orange transition-all hover:scale-110" title="Cambiar Idioma">
                     <i data-lucide="globe" class="w-4 h-4"></i> <span id="lang-indicator" class="font-bold">EN</span>
                 </button>
-                <button onclick="toggleTheme()" class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-brand-orange hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Cambiar Tema">
+                <button onclick="toggleTheme()" class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-brand-orange hover:bg-slate-200 dark:hover:bg-slate-700 transition-all hover:scale-110" title="Cambiar Tema">
                     <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -244,12 +273,12 @@
                     
                     <!-- Textos Hero -->
                     <div class="w-full lg:w-1/2 text-center lg:text-left reveal active">
-                        <div class="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                        <div class="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-[11px] font-extrabold tracking-[0.2em] uppercase shadow-[0_0_15px_rgba(255,102,0,0.15)] animate-pulse-glow">
                             <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
                             <span data-i18n="hero_badge">Soporte a Domicilio</span>
                         </div>
                         
-                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-brand-navy dark:text-white font-tech mb-6 tracking-tight leading-tight">
+                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-brand-navy dark:text-white font-tech mb-6 tracking-tight leading-tight" style="transform: translateZ(20px);">
                             <span data-i18n="hero_title_1">¿Tu compu</span> <br><span data-i18n="hero_title_2">está lenta o</span> <span class="text-brand-orange" data-i18n="hero_title_3">falla tu Wi-Fi?</span>
                         </h1>
                         
@@ -267,7 +296,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Loop Hero -->
+                    <!-- Video Loop Hero 3D -->
                     <div class="w-full lg:w-1/2 reveal active delay-200 mt-8 lg:mt-0">
                         <div class="video-container animate-float mx-auto w-full max-w-2xl lg:max-w-full">
                             <div class="video-wrapper relative w-full aspect-video shadow-2xl">
@@ -277,9 +306,9 @@
                                     <img src="logo.png" alt="Tech Xidito Mascota" class="w-full h-full object-cover opacity-80">
                                 </video>
                                 
-                                <!-- Etiqueta flotante estética adaptativa -->
-                                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 dark:bg-black/70 backdrop-blur-md border border-slate-200 dark:border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 sm:gap-3 shadow-lg z-10">
-                                    <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <!-- Etiqueta flotante 3D estética adaptativa -->
+                                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 dark:bg-black/70 backdrop-blur-md border border-slate-200 dark:border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 sm:gap-3 shadow-2xl z-10 hover:scale-105 transition-transform cursor-default">
+                                    <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
                                     <span class="text-[10px] sm:text-xs font-bold text-brand-navy dark:text-white font-tech tracking-wider" data-i18n="system_status">SISTEMA ONLINE</span>
                                 </div>
                             </div>
@@ -289,30 +318,31 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN: SERVICIOS -->
+            <!-- SECCIÓN: SERVICIOS (Tarjetas 3D) -->
             <section id="sec-servicios" class="section-container hidden py-12">
                 <div class="text-center mb-16 reveal">
-                    <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-4 tracking-tight"><span data-i18n="srv_title_1">Servicios</span> <span class="text-brand-orange" data-i18n="srv_title_2">Residenciales</span></h2>
+                    <!-- Título actualizado a PyMEs y Residenciales -->
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-4 tracking-tight"><span data-i18n="srv_title_1">Servicios</span> <span class="text-brand-orange" data-i18n="srv_title_2">para PyMEs y Residenciales</span></h2>
                     <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium" data-i18n="srv_subtitle">Soluciones prácticas para tu hogar o home office.</p>
                 </div>
                 
-                <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Inyectado vía JS -->
+                <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 perspective-1000">
+                    <!-- Inyectado vía JS con estructura 3D -->
                 </div>
 
                 <!-- Modal -->
                 <div id="service-modal" class="fixed inset-0 z-[1100] hidden items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity">
-                    <div class="relative w-full max-w-xl bg-white dark:bg-brand-surfacedark border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-2xl">
-                        <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-brand-orange transition-colors">
+                    <div class="relative w-full max-w-xl bg-white dark:bg-brand-surfacedark border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform scale-95 opacity-0 transition-all duration-300" id="modal-content-box">
+                        <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-brand-orange hover:rotate-90 transition-all">
                             <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                         <div class="flex flex-col items-center text-center gap-6">
-                            <div id="modal-icon-container" class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center text-brand-orange border border-brand-orange/20"></div>
+                            <div id="modal-icon-container" class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center text-brand-orange border border-brand-orange/20 animate-pulse-glow"></div>
                             <div class="w-full">
                                 <h3 id="modal-title" class="text-2xl font-black text-brand-navy dark:text-white font-tech mb-4"></h3>
                                 <p id="modal-desc" class="text-slate-600 dark:text-slate-300 text-base font-medium mb-6 leading-relaxed"></p>
                                 <div id="modal-details" class="space-y-3 mb-8 text-left w-full"></div>
-                                <a id="modal-cta" href="#" target="_blank" class="btn-action btn-primary w-full justify-center text-sm">
+                                <a id="modal-cta" href="#" target="_blank" class="btn-action btn-primary w-full justify-center text-sm shadow-[0_10px_20px_rgba(255,102,0,0.3)] hover:shadow-[0_15px_30px_rgba(255,102,0,0.5)]">
                                     <i data-lucide="message-circle"></i> <span data-i18n="modal_btn">Agendar por WhatsApp</span>
                                 </a>
                             </div>
@@ -321,33 +351,39 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN: PROCESO -->
+            <!-- SECCIÓN: PROCESO (Tarjetas 3D) -->
             <section id="sec-proceso" class="section-container hidden py-12">
                 <h2 class="text-4xl text-center font-black text-brand-navy dark:text-white mb-16 font-tech tracking-tight reveal"><span data-i18n="proc_title_1">¿Cómo</span> <span class="text-brand-orange" data-i18n="proc_title_2">Funciona?</span></h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-card p-8 rounded-xl text-center reveal">
-                        <div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-brand-orange border border-brand-orange/20">
-                            <i data-lucide="smartphone" class="w-8 h-8"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-1000">
+                    <div class="glass-card rounded-xl p-8 text-center reveal">
+                        <div class="content-3d flex flex-col items-center">
+                            <div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 text-brand-orange border border-brand-orange/20 shadow-lg">
+                                <i data-lucide="smartphone" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_1_title">1. Agenda Fácil</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_1_desc">Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.</p>
                         </div>
-                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_1_title">1. Agenda Fácil</h4>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_1_desc">Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.</p>
                     </div>
 
-                    <div class="glass-card p-8 rounded-xl text-center reveal delay-100">
-                        <div class="w-16 h-16 bg-blue-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-blue-500 dark:text-brand-orange border border-blue-100 dark:border-brand-orange/20">
-                            <i data-lucide="car" class="w-8 h-8"></i>
+                    <div class="glass-card rounded-xl p-8 text-center reveal delay-100">
+                        <div class="content-3d flex flex-col items-center">
+                            <div class="w-16 h-16 bg-blue-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 text-blue-500 dark:text-brand-orange border border-blue-100 dark:border-brand-orange/20 shadow-lg">
+                                <i data-lucide="car" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_2_title">2. Voy a tu Casa</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_2_desc">Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.</p>
                         </div>
-                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_2_title">2. Voy a tu Casa</h4>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_2_desc">Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.</p>
                     </div>
 
-                    <div class="glass-card p-8 rounded-xl text-center reveal delay-200">
-                        <div class="w-16 h-16 bg-emerald-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-emerald-500 dark:text-brand-orange border border-emerald-100 dark:border-brand-orange/20">
-                            <i data-lucide="check-circle" class="w-8 h-8"></i>
+                    <div class="glass-card rounded-xl p-8 text-center reveal delay-200">
+                        <div class="content-3d flex flex-col items-center">
+                            <div class="w-16 h-16 bg-emerald-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 text-emerald-500 dark:text-brand-orange border border-emerald-100 dark:border-brand-orange/20 shadow-lg">
+                                <i data-lucide="check-circle" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_3_title">3. Todo Resuelto</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_3_desc">Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.</p>
                         </div>
-                        <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_3_title">3. Todo Resuelto</h4>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_3_desc">Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.</p>
                     </div>
                 </div>
             </section>
@@ -355,21 +391,23 @@
             <!-- SECCIÓN: CONTACTO / COBERTURA -->
             <section id="sec-contacto" class="section-container hidden max-w-4xl mx-auto py-12 text-center">
                 <div class="glass-card p-12 md:p-16 rounded-3xl reveal border-brand-orange/20">
-                    <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-8"><span data-i18n="cov_title_1">Zonas de</span> <span class="text-brand-orange" data-i18n="cov_title_2">Cobertura</span></h2>
-                    
-                    <div class="mb-12 space-y-4">
-                        <div class="inline-flex items-center gap-3 px-5 py-2 bg-brand-orange/10 border border-brand-orange/30 rounded-lg text-brand-orange font-bold text-xs tracking-widest">
-                            <i data-lucide="map" class="w-4 h-4"></i> <span data-i18n="cov_badge">QUERÉTARO METROPOLITANO</span>
+                    <div class="content-3d">
+                        <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-8"><span data-i18n="cov_title_1">Zonas de</span> <span class="text-brand-orange" data-i18n="cov_title_2">Cobertura</span></h2>
+                        
+                        <div class="mb-12 space-y-4">
+                            <div class="inline-flex items-center gap-3 px-5 py-2 bg-brand-orange/10 border border-brand-orange/30 rounded-lg text-brand-orange font-bold text-xs tracking-widest animate-pulse-glow">
+                                <i data-lucide="map" class="w-4 h-4"></i> <span data-i18n="cov_badge">QUERÉTARO METROPOLITANO</span>
+                            </div>
+                            <p class="text-brand-navy dark:text-white font-bold text-2xl uppercase font-tech tracking-tight mt-4" data-i18n="cov_subtitle">Servicio a Domicilio</p>
+                            <p class="text-slate-600 dark:text-slate-400 text-lg font-medium max-w-lg mx-auto leading-relaxed" data-i18n="cov_desc">
+                                Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.
+                            </p>
                         </div>
-                        <p class="text-brand-navy dark:text-white font-bold text-2xl uppercase font-tech tracking-tight mt-4" data-i18n="cov_subtitle">Servicio a Domicilio</p>
-                        <p class="text-slate-600 dark:text-slate-400 text-lg font-medium max-w-lg mx-auto leading-relaxed" data-i18n="cov_desc">
-                            Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.
-                        </p>
-                    </div>
 
-                    <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto">
-                        <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
-                    </a>
+                        <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto shadow-[0_10px_30px_rgba(255,102,0,0.4)]">
+                            <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -390,7 +428,7 @@
     <div class="taskbar">
         <div class="flex items-center gap-2">
             <div class="start-btn" onclick="navigate('inicio')">
-                <i data-lucide="skull" class="w-5 h-5 text-brand-orange"></i>
+                <i data-lucide="skull" class="w-5 h-5 text-brand-orange animate-pulse-glow"></i>
                 <span class="text-brand-navy dark:text-white text-xs font-bold uppercase font-tech hidden sm:inline tracking-wider">Xidito_OS</span>
             </div>
             <div class="h-5 w-[1px] bg-slate-300 dark:bg-white/20 mx-2"></div>
@@ -422,7 +460,7 @@
                 hero_badge: "Soporte a Domicilio", hero_title_1: "¿Tu compu", hero_title_2: "está lenta o", hero_title_3: "falla tu Wi-Fi?",
                 hero_desc: "¡No desconectes nada! Voy directo a tu casa u oficina a solucionar problemas técnicos. Rápido, seguro y sin palabras complicadas.",
                 hero_btn_1: "Solucionar Ahora", hero_btn_2: "Ver Zonas", system_status: "SISTEMA ONLINE",
-                srv_title_1: "Servicios", srv_title_2: "Residenciales", srv_subtitle: "Soluciones prácticas para tu hogar o home office.",
+                srv_title_1: "Servicios", srv_title_2: "para PyMEs y Residenciales", srv_subtitle: "Soluciones prácticas para tu hogar o home office.",
                 proc_title_1: "¿Cómo", proc_title_2: "Funciona?", 
                 proc_1_title: "1. Agenda Fácil", proc_1_desc: "Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.",
                 proc_2_title: "2. Voy a tu Casa", proc_2_desc: "Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.",
@@ -437,7 +475,7 @@
                 hero_badge: "On-Site Tech Support", hero_title_1: "Is your PC", hero_title_2: "slow or", hero_title_3: "Wi-Fi failing?",
                 hero_desc: "Don't unplug anything! I go directly to your home or office to fix technical issues. Fast, secure, and no tech jargon.",
                 hero_btn_1: "Fix it Now", hero_btn_2: "See Coverage", system_status: "SYSTEM ONLINE",
-                srv_title_1: "Residential", srv_title_2: "Services", srv_subtitle: "Practical solutions for your home or home office.",
+                srv_title_1: "Services", srv_title_2: "for SMBs and Homes", srv_subtitle: "Practical solutions for your home or home office.",
                 proc_title_1: "How it", proc_title_2: "Works?", 
                 proc_1_title: "1. Easy Booking", proc_1_desc: "Send me a WhatsApp with your device issue and we will coordinate the best time to visit you.",
                 proc_2_title: "2. I Go to You", proc_2_desc: "I arrive directly at your location. No need to carry heavy desktops or deal with messy cables.",
@@ -539,7 +577,6 @@
 
         function toggleLang() {
             currentLang = currentLang === 'es' ? 'en' : 'es';
-            // Ahora muestra "EN" si está en español, y "ES" si está en inglés.
             document.getElementById('lang-indicator').innerText = currentLang === 'es' ? 'EN' : 'ES';
             translateUI();
         }
@@ -561,7 +598,7 @@
             refreshIcons();
         }
 
-        // Renderizar Grid de Servicios
+        // Renderizar Grid de Servicios con estructura 3D
         function renderServices() {
             const grid = document.getElementById('services-grid');
             grid.innerHTML = '';
@@ -569,11 +606,13 @@
                 const delay = index * 100;
                 grid.innerHTML += `
                     <div onclick="openModal('${s.id}')" class="glass-card reveal cursor-pointer rounded-2xl p-8 text-center flex flex-col h-full group" style="transition-delay: ${delay}ms;">
-                        <div class="w-16 h-16 shrink-0 bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm dark:shadow-lg">
-                            <i data-lucide="${s.icon}" class="w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                        <div class="content-3d flex flex-col h-full">
+                            <div class="w-16 h-16 shrink-0 bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm dark:shadow-lg">
+                                <i data-lucide="${s.icon}" class="w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <h3 class="text-lg font-black text-brand-navy dark:text-white mb-3 font-tech leading-tight group-hover:text-brand-orange transition-colors">${s.label[currentLang]}</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium line-clamp-4 flex-grow">${s.desc[currentLang]}</p>
                         </div>
-                        <h3 class="text-lg font-black text-brand-navy dark:text-white mb-3 font-tech leading-tight group-hover:text-brand-orange transition-colors">${s.label[currentLang]}</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium line-clamp-4 flex-grow">${s.desc[currentLang]}</p>
                     </div>
                 `;
             });
@@ -584,7 +623,7 @@
             grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
-        // Modales
+        // Modales 3D
         function openModal(id) {
             const s = servicesData.find(x => x.id === id);
             document.getElementById('modal-title').innerText = s.label[currentLang];
@@ -603,8 +642,14 @@
             document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=${encodeURIComponent(waMsg)}`;
             
             const modal = document.getElementById('service-modal');
+            const contentBox = document.getElementById('modal-content-box');
+            
             modal.classList.replace('hidden', 'flex');
-            setTimeout(() => modal.classList.add('opacity-100'), 10);
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                contentBox.classList.remove('scale-95', 'opacity-0');
+                contentBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
             
             refreshIcons();
             if(typeof gtag !== 'undefined') gtag('event', 'ver_detalle_servicio', { event_category: 'Servicios', event_label: 'modal_' + id });
@@ -612,8 +657,13 @@
 
         function closeModal() { 
             const modal = document.getElementById('service-modal');
+            const contentBox = document.getElementById('modal-content-box');
+            
+            contentBox.classList.remove('scale-100', 'opacity-100');
+            contentBox.classList.add('scale-95', 'opacity-0');
             modal.classList.remove('opacity-100');
-            setTimeout(() => modal.classList.replace('flex', 'hidden'), 200);
+            
+            setTimeout(() => modal.classList.replace('flex', 'hidden'), 300);
         }
 
         // Navegación
