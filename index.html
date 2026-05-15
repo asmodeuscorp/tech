@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xidito Tech | Soluciones IT para tu Hogar y Empresa</title>      <!-- Google Analytics 4 - Xidito Tech -->     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGQ2WCMVFQ"></script>     <script>       window.dataLayer = window.dataLayer || [];       function gtag(){dataLayer.push(arguments);}       gtag('js', new Date());       gtag('config', 'G-RGQ2WCMVFQ');     </script>
+    <title>Tech Xidito | Soporte Técnico a Domicilio</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGQ2WCMVFQ"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+       gtag('config', 'G-RGQ2WCMVFQ');
+    </script>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><rect x='20' y='20' width='60' height='60' rx='8' fill='%2300FFFF'/><path d='M40 40H60V60H40V40Z' fill='white'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><rect x='20' y='20' width='60' height='60' rx='8' fill='%23ff6600'/><path d='M40 40H60V60H40V40Z' fill='white'/></svg>">
     
-    <!-- Fuentes: Orbitron para impacto, Inter para lectura clara -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -16,6 +25,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -25,11 +35,26 @@
                     },
                     colors: {
                         brand: {
-                            dark: '#05070a',
-                            steel: '#12151c',
-                            cyan: '#00FFFF',
-                            blue: '#3b82f6',
-                            purple: '#BD00FF',
+                            navy: '#0f2e4a',
+                            orange: '#ff6600',
+                            orangedark: '#cc5200',
+                            bglight: '#f8fafc',
+                            bgdark: '#050505',
+                            surfacedark: '#111111'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(255, 102, 0, 0.2)' },
+                            '100%': { boxShadow: '0 0 30px rgba(255, 102, 0, 0.6)' },
                         }
                     }
                 }
@@ -40,59 +65,64 @@
 
     <style>
         body {
-            background-color: #05070a;
-            color: #f1f5f9;
+            transition: background-color 0.3s ease, color 0.3s ease;
             scroll-behavior: smooth;
-            padding-bottom: 60px; /* Espacio para la barra de tareas */
+            padding-bottom: 60px;
+            overflow-x: hidden;
         }
 
-        /* Acabado Acero Inoxidable (Apple M2 Style) */
-        .steel-finish {
-            background: linear-gradient(135deg, #0f1218 0%, #05070a 100%);
-            position: relative;
-        }
-        .steel-finish::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png');
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        /* Glassmorphism con alto contraste y legibilidad */
+        /* Glassmorphism Dinámico (Claro / Oscuro) */
         .glass-card {
-            background: rgba(15, 20, 30, 0.9);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-card {
+            background: rgba(20, 20, 20, 0.7);
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         .glass-card:hover {
-            border-color: #00FFFF;
-            transform: translateY(-4px);
-            background: rgba(20, 25, 35, 0.95);
+            border-color: #ff6600;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 102, 0, 0.15);
         }
 
-        /* Barra de Tareas Estilo Windows */
+        /* Animaciones de scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Barra de Tareas */
         .taskbar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 48px;
-            background: rgba(10, 10, 15, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
             z-index: 1000;
-            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .dark .taskbar {
+            background: rgba(10, 10, 10, 0.95);
+            border-top-color: rgba(255, 102, 0, 0.2);
         }
 
-        /* Botón de Inicio Estilo Logo */
         .start-btn {
             display: flex;
             align-items: center;
@@ -102,106 +132,167 @@
             transition: background 0.2s;
             cursor: pointer;
         }
-        .start-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+        .start-btn:hover { background: rgba(0, 0, 0, 0.05); }
+        .dark .start-btn:hover { background: rgba(255, 102, 0, 0.1); }
 
-        /* Botones Metálicos */
+        /* Botones Base */
         .btn-action {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            transition: all 0.2s;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
         }
-        .btn-action:hover {
-            border-color: #00FFFF;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            background: #00FFFF;
-            color: #000;
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6600, #cc5200);
+            color: #ffffff;
+            border: none;
+            position: relative;
+            overflow: hidden;
         }
-
-        .text-gradient {
-            background: linear-gradient(to right, #00FFFF, #60a5fa, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
-
-        .aurora {
+        .btn-primary::after {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.12;
-            z-index: 0;
-            pointer-events: none;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.2);
+            transform: rotate(45deg) translateX(-100%);
+            transition: 0.5s ease;
+        }
+        .btn-primary:hover::after { transform: rotate(45deg) translateX(100%); }
+        .btn-primary:hover { transform: scale(1.05); }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0f2e4a;
+            border: 2px solid #e2e8f0;
+        }
+        .dark .btn-secondary {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .btn-secondary:hover {
+            border-color: #ff6600;
+            color: #ff6600;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            border-radius: 2rem;
+            padding: 4px;
+            background: linear-gradient(135deg, #ff6600 0%, transparent 100%);
+        }
+        .video-wrapper {
+            border-radius: 1.8rem;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 0 50px rgba(255,102,0,0.1);
         }
     </style>
 </head>
-<body class="steel-finish font-sans">
+<body class="bg-brand-bglight dark:bg-brand-bgdark text-slate-700 dark:text-slate-300 transition-colors duration-300 font-sans">
 
-    <!-- LUCES DE FONDO CONTROLADAS -->
-    <div class="aurora w-64 h-64 bg-cyan-600 top-0 left-1/4"></div>
-    <div class="aurora w-96 h-96 bg-blue-700 bottom-0 right-1/4"></div>
+    <!-- LUCES DE FONDO (Se adaptan en JS) -->
+    <div id="bg-glow-1" class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-brand-orange/20 rounded-full blur-[120px] pointer-events-none z-0 transition-colors duration-500"></div>
+    <div id="bg-glow-2" class="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-orange-50 dark:bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none z-0 transition-colors duration-500"></div>
 
     <!-- NAVEGACIÓN -->
-    <nav class="fixed top-0 w-full z-50 bg-[#05070a]/90 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 group cursor-pointer" onclick="navigate('inicio')">
-                <div class="w-9 h-9 flex items-center justify-center border border-white/20 rounded bg-slate-900 group-hover:border-cyan-400">
-                    <i data-lucide="cpu" class="text-cyan-400 w-5 h-5"></i>
-                </div>
-                <span class="font-bold tracking-tight text-lg uppercase text-white font-tech">Xidito <span class="text-cyan-400">Tech</span></span>
+    <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('inicio')">
+                <img src="logo.png" alt="Tech Xidito Logo" class="h-12 w-auto object-contain rounded-full border-2 border-brand-orange/50 bg-black">
+                <span class="font-bold tracking-tight text-xl text-brand-navy dark:text-white font-tech hidden sm:block">TECH <span class="text-brand-orange">XIDITO</span></span>
             </div>
             
-            <div class="hidden md:flex space-x-8 font-tech text-[10px] font-bold tracking-widest uppercase">
-                <button onclick="navigate('inicio')" class="nav-link text-cyan-400" data-target="inicio">Inicio</button>
-                <button onclick="navigate('servicios')" class="nav-link text-slate-400 hover:text-white" data-target="servicios">Servicios</button>
-                <button onclick="navigate('proceso')" class="nav-link text-slate-400 hover:text-white" data-target="proceso">¿Cómo ayudamos?</button>
-                <button onclick="navigate('contacto')" class="nav-link text-slate-400 hover:text-white" data-target="contacto">Contacto</button>
+            <div class="hidden md:flex space-x-6 font-tech text-[11px] font-bold tracking-widest uppercase items-center">
+                <button onclick="navigate('inicio')" class="nav-link text-brand-orange" data-target="inicio" data-i18n="nav_home">Inicio</button>
+                <button onclick="navigate('servicios')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="servicios" data-i18n="nav_services">Servicios</button>
+                <button onclick="navigate('proceso')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="proceso" data-i18n="nav_process">¿Cómo Funciona?</button>
+                <button onclick="navigate('contacto')" class="nav-link text-slate-500 dark:text-slate-400 hover:text-brand-orange transition-colors" data-target="contacto" data-i18n="nav_coverage">Cobertura</button>
+                
+                <div class="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-2"></div>
+                
+                <!-- Controles: Idioma y Tema -->
+                <button onclick="toggleLang()" class="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-brand-orange transition-colors" title="Cambiar Idioma">
+                    <i data-lucide="globe" class="w-4 h-4"></i> <span id="lang-indicator" class="font-bold">EN</span>
+                </button>
+                <button onclick="toggleTheme()" class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-brand-orange hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Cambiar Tema">
+                    <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="relative z-10 pt-24 px-6">
+    <main class="relative z-10 pt-28 px-4 sm:px-6 pb-20 max-w-7xl mx-auto">
         
-        <!-- SECCIÓN: INICIO -->
-        <section id="sec-inicio" class="section-container block max-w-5xl mx-auto py-12 md:py-24 text-center">
-            <div class="inline-block px-4 py-1 mb-6 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-400 text-[10px] font-bold tracking-[0.3em] uppercase">
-                Expertos en computación funcional
-            </div>
-            
-            <h1 class="text-4xl md:text-7xl font-black uppercase text-white font-tech mb-6 tracking-tighter leading-tight">
-                Soporte para <br><span class="text-gradient">tus equipos</span>
-            </h1>
-            
-            <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
-                Reparamos tu computadora y optimizamos tu conexión para que trabajes sin interrupciones.
-            </p>
+        <!-- SECCIÓN: INICIO (HERO DIVIDIDO CON VIDEO) -->
+        <section id="sec-inicio" class="section-container block py-12 md:py-20">
+            <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+                
+                <!-- Textos Hero -->
+                <div class="w-full lg:w-1/2 text-center lg:text-left reveal active">
+                    <div class="inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-[11px] font-extrabold tracking-[0.2em] uppercase">
+                        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                        <span data-i18n="hero_badge">Soporte a Domicilio</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-brand-navy dark:text-white font-tech mb-6 tracking-tight leading-tight">
+                        <span data-i18n="hero_title_1">¿Tu compu</span> <br><span data-i18n="hero_title_2">está lenta o</span> <span class="text-brand-orange" data-i18n="hero_title_3">falla tu Wi-Fi?</span>
+                    </h1>
+                    
+                    <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl mb-10 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0" data-i18n="hero_desc">
+                        ¡No desconectes nada! Voy directo a tu casa u oficina a solucionar problemas técnicos. Rápido, seguro y sin palabras complicadas.
+                    </p>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="navigate('servicios')" class="btn-action !bg-cyan-400 !text-black !font-extrabold border-none">
-                    <i data-lucide="settings-2" class="w-4 h-4"></i> Solucionar mi problema
-                </button>
-                <button onclick="navigate('contacto')" class="btn-action">
-                    <i data-lucide="map-pin" class="w-4 h-4"></i> Ver ubicación
-                </button>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <button onclick="navigate('servicios')" class="btn-action btn-primary animate-glow">
+                            <i data-lucide="zap" class="w-5 h-5"></i> <span data-i18n="hero_btn_1">Solucionar Ahora</span>
+                        </button>
+                        <button onclick="navigate('contacto')" class="btn-action btn-secondary">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i> <span data-i18n="hero_btn_2">Ver Zonas</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Loop Hero -->
+                <div class="w-full lg:w-1/2 reveal active delay-200 mt-8 lg:mt-0">
+                    <div class="video-container animate-float mx-auto w-full max-w-2xl lg:max-w-full">
+                        <div class="video-wrapper relative w-full aspect-video shadow-2xl">
+                            <!-- Video 16:9 Optimizado -->
+                            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                                <source src="video_portada.mp4" type="video/mp4">
+                                <img src="logo.png" alt="Tech Xidito Mascota" class="w-full h-full object-cover opacity-80">
+                            </video>
+                            
+                            <!-- Etiqueta flotante estética adaptativa -->
+                            <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 dark:bg-black/70 backdrop-blur-md border border-slate-200 dark:border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg flex items-center gap-2 sm:gap-3 shadow-lg z-10">
+                                <div class="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-[10px] sm:text-xs font-bold text-brand-navy dark:text-white font-tech tracking-wider" data-i18n="system_status">SISTEMA ONLINE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- SECCIÓN: SERVICIOS -->
-        <section id="sec-servicios" class="section-container hidden max-w-6xl mx-auto py-12">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-black uppercase text-white font-tech mb-4 tracking-tight">Servicios <span class="text-cyan-400">Garantizados</span></h2>
-                <p class="text-slate-300 text-base max-w-2xl mx-auto font-medium">Ponemos fin a los errores de sistema y problemas de red.</p>
+        <section id="sec-servicios" class="section-container hidden py-12">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-4 tracking-tight"><span data-i18n="srv_title_1">Servicios</span> <span class="text-brand-orange" data-i18n="srv_title_2">Residenciales</span></h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium" data-i18n="srv_subtitle">Soluciones prácticas para tu hogar o home office.</p>
             </div>
             
             <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -209,19 +300,19 @@
             </div>
 
             <!-- Modal -->
-            <div id="service-modal" class="fixed inset-0 z-[1100] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-                <div class="relative w-full max-w-xl glass-card rounded-xl p-8 border-cyan-400/40">
-                    <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-white transition-colors">
+            <div id="service-modal" class="fixed inset-0 z-[1100] hidden items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity">
+                <div class="relative w-full max-w-xl bg-white dark:bg-brand-surfacedark border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-2xl">
+                    <button onclick="closeModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-brand-orange transition-colors">
                         <i data-lucide="x" class="w-6 h-6"></i>
                     </button>
                     <div class="flex flex-col items-center text-center gap-6">
-                        <div id="modal-icon-container" class="w-16 h-16 bg-slate-900 border border-cyan-400/30 rounded-xl flex items-center justify-center text-cyan-400"></div>
-                        <div>
-                            <h3 id="modal-title" class="text-2xl font-black uppercase text-white font-tech mb-4"></h3>
-                            <p id="modal-desc" class="text-slate-100 text-base font-medium mb-6 leading-relaxed"></p>
-                            <div id="modal-details" class="space-y-3 mb-8 text-left"></div>
-                            <a id="modal-cta" href="#" target="_blank" class="btn-action w-full justify-center !bg-cyan-400 !text-black border-none !text-sm">
-                                <i data-lucide="message-circle"></i> Contactar por WhatsApp
+                        <div id="modal-icon-container" class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center text-brand-orange border border-brand-orange/20"></div>
+                        <div class="w-full">
+                            <h3 id="modal-title" class="text-2xl font-black text-brand-navy dark:text-white font-tech mb-4"></h3>
+                            <p id="modal-desc" class="text-slate-600 dark:text-slate-300 text-base font-medium mb-6 leading-relaxed"></p>
+                            <div id="modal-details" class="space-y-3 mb-8 text-left w-full"></div>
+                            <a id="modal-cta" href="#" target="_blank" class="btn-action btn-primary w-full justify-center text-sm">
+                                <i data-lucide="message-circle"></i> <span data-i18n="modal_btn">Agendar por WhatsApp</span>
                             </a>
                         </div>
                     </div>
@@ -230,51 +321,53 @@
         </section>
 
         <!-- SECCIÓN: PROCESO -->
-        <section id="sec-proceso" class="section-container hidden max-w-5xl mx-auto py-12">
-            <h2 class="text-3xl text-center font-black uppercase text-white mb-16 font-tech tracking-tight">¿Cómo <span class="text-cyan-400">te ayudamos?</span></h2>
+        <section id="sec-proceso" class="section-container hidden py-12">
+            <h2 class="text-4xl text-center font-black text-brand-navy dark:text-white mb-16 font-tech tracking-tight reveal"><span data-i18n="proc_title_1">¿Cómo</span> <span class="text-brand-orange" data-i18n="proc_title_2">Funciona?</span></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-xl text-center">
-                    <div class="w-12 h-12 bg-cyan-400/10 rounded-lg flex items-center justify-center mb-6 mx-auto text-cyan-400">
-                        <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                <div class="glass-card p-8 rounded-xl text-center reveal">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-brand-orange border border-brand-orange/20">
+                        <i data-lucide="smartphone" class="w-8 h-8"></i>
                     </div>
-                    <h4 class="text-white font-bold text-lg mb-3">Revisión Clara</h4>
-                    <p class="text-slate-200 text-sm leading-relaxed font-medium">Diagnosticamos tu equipo y te explicamos el problema en palabras sencillas.</p>
+                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_1_title">1. Agenda Fácil</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_1_desc">Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-xl text-center">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 mx-auto text-blue-400">
-                        <i data-lucide="wrench" class="w-6 h-6"></i>
+                <div class="glass-card p-8 rounded-xl text-center reveal delay-100">
+                    <div class="w-16 h-16 bg-blue-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-blue-500 dark:text-brand-orange border border-blue-100 dark:border-brand-orange/20">
+                        <i data-lucide="car" class="w-8 h-8"></i>
                     </div>
-                    <h4 class="text-white font-bold text-lg mb-3">Solución Rápida</h4>
-                    <p class="text-slate-200 text-sm leading-relaxed font-medium">Utilizamos herramientas de alta gama para que tu equipo vuelva a la vida hoy mismo.</p>
+                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_2_title">2. Voy a tu Casa</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_2_desc">Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-xl text-center">
-                    <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 mx-auto text-purple-400">
-                        <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                <div class="glass-card p-8 rounded-xl text-center reveal delay-200">
+                    <div class="w-16 h-16 bg-emerald-50 dark:bg-brand-orange/10 rounded-full flex items-center justify-center mb-6 mx-auto text-emerald-500 dark:text-brand-orange border border-emerald-100 dark:border-brand-orange/20">
+                        <i data-lucide="check-circle" class="w-8 h-8"></i>
                     </div>
-                    <h4 class="text-white font-bold text-lg mb-3">Resultado Funcional</h4>
-                    <p class="text-slate-200 text-sm leading-relaxed font-medium">No solo reparamos; optimizamos tu sistema para que sea más rápido que antes.</p>
+                    <h4 class="text-brand-navy dark:text-white font-bold text-xl mb-3 font-tech" data-i18n="proc_3_title">3. Todo Resuelto</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium" data-i18n="proc_3_desc">Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN: CONTACTO -->
+        <!-- SECCIÓN: CONTACTO / COBERTURA -->
         <section id="sec-contacto" class="section-container hidden max-w-4xl mx-auto py-12 text-center">
-            <div class="glass-card p-12 md:p-16 rounded-3xl">
-                <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-tech mb-8">Nuestra <span class="text-cyan-400">Oficina</span></h2>
+            <div class="glass-card p-12 md:p-16 rounded-3xl reveal border-brand-orange/20">
+                <h2 class="text-4xl md:text-5xl font-black text-brand-navy dark:text-white font-tech mb-8"><span data-i18n="cov_title_1">Zonas de</span> <span class="text-brand-orange" data-i18n="cov_title_2">Cobertura</span></h2>
                 
                 <div class="mb-12 space-y-4">
-                    <div class="inline-flex items-center gap-3 px-5 py-2 bg-slate-950 border border-cyan-400/30 rounded-lg text-cyan-400 font-bold text-xs">
-                        <i data-lucide="navigation" class="w-4 h-4"></i> ZONA SUR
+                    <div class="inline-flex items-center gap-3 px-5 py-2 bg-brand-orange/10 border border-brand-orange/30 rounded-lg text-brand-orange font-bold text-xs tracking-widest">
+                        <i data-lucide="map" class="w-4 h-4"></i> <span data-i18n="cov_badge">QUERÉTARO METROPOLITANO</span>
                     </div>
-                    <p class="text-white font-bold text-2xl uppercase font-tech tracking-tight">Colonia Vista Alegre</p>
-                    <p class="text-slate-100 text-lg font-medium">Atención previa cita</p>
+                    <p class="text-brand-navy dark:text-white font-bold text-2xl uppercase font-tech tracking-tight mt-4" data-i18n="cov_subtitle">Servicio a Domicilio</p>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg font-medium max-w-lg mx-auto leading-relaxed" data-i18n="cov_desc">
+                        Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.
+                    </p>
                 </div>
 
-                <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action !px-16 py-5 !bg-cyan-400 !text-black border-none !text-sm group">
-                    <i data-lucide="calendar" class="group-hover:rotate-12 transition-transform"></i> Agendar por WhatsApp
+                <a id="btn-whatsapp-tech" href="https://wa.me/524421260133" target="_blank" class="btn-action btn-primary animate-glow !px-12 py-5 text-sm group mx-auto">
+                    <i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">Cotizar Visita</span>
                 </a>
             </div>
         </section>
@@ -285,130 +378,298 @@
     <div class="taskbar">
         <div class="flex items-center gap-2">
             <div class="start-btn" onclick="navigate('inicio')">
-                <i data-lucide="layout-grid" class="w-5 h-5 text-cyan-400"></i>
-                <span class="text-white text-xs font-bold uppercase font-tech hidden sm:inline">XiditoOS</span>
+                <i data-lucide="skull" class="w-5 h-5 text-brand-orange"></i>
+                <span class="text-brand-navy dark:text-white text-xs font-bold uppercase font-tech hidden sm:inline tracking-wider">Xidito_OS</span>
             </div>
-            <div class="h-6 w-[1px] bg-white/10 mx-2"></div>
-            <div class="flex items-center gap-4 text-[11px] font-medium text-slate-400">
+            <div class="h-5 w-[1px] bg-slate-300 dark:bg-white/20 mx-2"></div>
+            <div class="flex items-center gap-4 text-[11px] font-medium text-slate-500 dark:text-slate-400">
                 <span id="location-display" class="flex items-center gap-1">
-                    <i data-lucide="map-pin" class="w-3 h-3"></i> Detectando...
+                    <i data-lucide="map-pin" class="w-3 h-3"></i> <span data-i18n="task_locating">Localizando...</span>
                 </span>
             </div>
         </div>
         
         <div class="flex items-center gap-4">
-            <div class="flex flex-col items-end text-[10px] text-white/80 font-medium leading-none">
+            <div class="flex flex-col items-end text-[10px] text-slate-600 dark:text-white/90 font-medium leading-none font-mono">
                 <span id="taskbar-time">00:00</span>
-                <span id="taskbar-date" class="mt-1 text-[9px] opacity-60">00/00/00</span>
+                <span id="taskbar-date" class="mt-1 text-[9px] text-slate-400 dark:text-brand-orange">00/00/00</span>
             </div>
-            <div class="h-8 w-[1px] bg-white/20 ml-2"></div>
+            <div class="h-6 w-[1px] bg-slate-300 dark:bg-white/20 ml-2"></div>
         </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        function refreshIcons() { lucide.createIcons(); }
-        refreshIcons();
+        // ==========================
+        // DICCIONARIO DE IDIOMAS
+        // ==========================
+        let currentLang = 'es';
+        const i18n = {
+            es: {
+                nav_home: "Inicio", nav_services: "Servicios", nav_process: "¿Cómo Funciona?", nav_coverage: "Cobertura",
+                hero_badge: "Soporte a Domicilio", hero_title_1: "¿Tu compu", hero_title_2: "está lenta o", hero_title_3: "falla tu Wi-Fi?",
+                hero_desc: "¡No desconectes nada! Voy directo a tu casa u oficina a solucionar problemas técnicos. Rápido, seguro y sin palabras complicadas.",
+                hero_btn_1: "Solucionar Ahora", hero_btn_2: "Ver Zonas", system_status: "SISTEMA ONLINE",
+                srv_title_1: "Servicios", srv_title_2: "Residenciales", srv_subtitle: "Soluciones prácticas para tu hogar o home office.",
+                proc_title_1: "¿Cómo", proc_title_2: "Funciona?", 
+                proc_1_title: "1. Agenda Fácil", proc_1_desc: "Mándame un WhatsApp con el problema de tu equipo y coordinamos el mejor horario para visitarte.",
+                proc_2_title: "2. Voy a tu Casa", proc_2_desc: "Llego directamente a tu dirección. No necesitas cargar CPUs pesados ni enredarte con los cables.",
+                proc_3_title: "3. Todo Resuelto", proc_3_desc: "Reviso y configuro todo en sitio. Te explico la solución de forma clara y funcional.",
+                cov_title_1: "Zonas de", cov_title_2: "Cobertura", cov_badge: "QUERÉTARO METROPOLITANO", cov_subtitle: "Servicio a Domicilio",
+                cov_desc: "Atiendo en Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) y zonas extendidas (Juriquilla, Zibatá, El Marqués) con ajuste de viáticos.",
+                cov_btn: "Cotizar Visita", task_locating: "Localizando...", task_online: "En línea", modal_btn: "Agendar por WhatsApp"
+            },
+            en: {
+                nav_home: "Home", nav_services: "Services", nav_process: "How it Works?", nav_coverage: "Coverage",
+                hero_badge: "On-Site Tech Support", hero_title_1: "Is your PC", hero_title_2: "slow or", hero_title_3: "Wi-Fi failing?",
+                hero_desc: "Don't unplug anything! I go directly to your home or office to fix technical issues. Fast, secure, and no tech jargon.",
+                hero_btn_1: "Fix it Now", hero_btn_2: "See Coverage", system_status: "SYSTEM ONLINE",
+                srv_title_1: "Residential", srv_title_2: "Services", srv_subtitle: "Practical solutions for your home or home office.",
+                proc_title_1: "How it", proc_title_2: "Works?", 
+                proc_1_title: "1. Easy Booking", proc_1_desc: "Send me a WhatsApp with your device issue and we will coordinate the best time to visit you.",
+                proc_2_title: "2. I Go to You", proc_2_desc: "I arrive directly at your location. No need to carry heavy desktops or deal with messy cables.",
+                proc_3_title: "3. All Solved", proc_3_desc: "I check and configure everything on-site. I explain the solution clearly and functionally.",
+                cov_title_1: "Coverage", cov_title_2: "Zones", cov_badge: "QUERÉTARO METRO AREA", cov_subtitle: "Home Service",
+                cov_desc: "Serving Corregidora (Tejeda, Pueblito), Querétaro Capital (Centro, Sur, Milenio) and extended areas (Juriquilla, Zibatá, El Marqués) with a travel fee.",
+                cov_btn: "Get a Quote", task_locating: "Locating...", task_online: "Online", modal_btn: "Book via WhatsApp"
+            }
+        };
 
+        // Datos de Servicios Multilingües
+        const servicesData = [
+            { 
+                id: 'pc-repair', icon: 'cpu', 
+                label: { es: 'Optimización de PC / Mac', en: 'PC / Mac Optimization' },
+                desc: { 
+                    es: '¿Tu compu se traba o lanza errores? Hacemos limpieza profunda de sistema y virus para devolverle su velocidad original.',
+                    en: 'Is your computer freezing or throwing errors? We deep clean your system and remove viruses to restore its original speed.'
+                },
+                details: {
+                    es: ['Limpieza de sistema y archivos basura', 'Eliminación de virus y malware', 'Actualización de Windows/macOS', 'Configuración de equipos nuevos'],
+                    en: ['System & junk file cleaning', 'Virus & malware removal', 'Windows/macOS updates', 'New computer setup']
+                }
+            },
+            { 
+                id: 'wifi-pro', icon: 'wifi', 
+                label: { es: 'Mejora de Señal Wi-Fi', en: 'Wi-Fi Signal Boost' },
+                desc: { 
+                    es: '¿El internet no llega a tu cuarto? Optimizamos y extendemos tu red para que navegues, juegues y veas streaming sin pausas.',
+                    en: 'Internet not reaching your room? We optimize and extend your network for seamless browsing, gaming, and streaming.'
+                },
+                details: {
+                    es: ['Extensión de cobertura en la casa', 'Configuración de modems y routers', 'Diagnóstico de lentitud de red', 'Conexión a Smart TVs y Consolas'],
+                    en: ['Home coverage extension', 'Modem & router configuration', 'Network slowdown diagnosis', 'Smart TV & Console connection']
+                }
+            },
+            { 
+                id: 'software-setup', icon: 'layout-template', 
+                label: { es: 'Instalación de Programas', en: 'Software Installation' },
+                desc: { 
+                    es: 'Desde Office hasta configuraciones complejas como OBS o impresoras rebeldes. Lo instalamos y te enseñamos a usarlo.',
+                    en: 'From Office to complex setups like OBS or stubborn printers. We install it and show you how to use it.'
+                },
+                details: {
+                    es: ['Configuración de cámaras y OBS', 'Instalación de paquetería (Office, etc)', 'Configuración de impresoras Wi-Fi', 'Asesoría rápida de uso'],
+                    en: ['Camera & OBS setup', 'Software packages (Office, etc.)', 'Wi-Fi printer configuration', 'Quick usage guidance']
+                }
+            },
+            { 
+                id: 'home-visit', icon: 'wrench', 
+                label: { es: 'Asistencia Técnica', en: 'General Tech Support' },
+                desc: { 
+                    es: '¿Un problema raro que no sabes explicar? Yo voy a tu casa, lo reviso directamente en tu escritorio y lo resuelvo.',
+                    en: 'A weird problem you can’t explain? I’ll go to your house, check it right at your desk, and solve it.'
+                },
+                details: {
+                    es: ['Cobertura en zona metropolitana', 'Diagnóstico directo en sitio', 'Solución de problemas cotidianos', 'Costo claro por hora de servicio'],
+                    en: ['Metro area coverage', 'Direct on-site diagnosis', 'Everyday problem solving', 'Clear hourly rate']
+                }
+            }
+        ];
+
+        // ==========================
+        // FUNCIONES CORE
+        // ==========================
+        function refreshIcons() { lucide.createIcons(); }
+
+        // Traducir Interfaz
+        function translateUI() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = i18n[currentLang][key];
+                    } else {
+                        // Preservar iconos internos si los hay (solo reemplazamos el texto del span interno o del elemento)
+                        el.innerHTML = i18n[currentLang][key]; 
+                    }
+                }
+            });
+            
+            // Reparar botones con iconos específicos
+            document.querySelector('[data-i18n="hero_btn_1"]').parentElement.innerHTML = `<i data-lucide="zap" class="w-5 h-5"></i> <span data-i18n="hero_btn_1">${i18n[currentLang]['hero_btn_1']}</span>`;
+            document.querySelector('[data-i18n="hero_btn_2"]').parentElement.innerHTML = `<i data-lucide="map-pin" class="w-5 h-5"></i> <span data-i18n="hero_btn_2">${i18n[currentLang]['hero_btn_2']}</span>`;
+            document.querySelector('[data-i18n="cov_btn"]').parentElement.innerHTML = `<i data-lucide="message-square" class="group-hover:-rotate-12 transition-transform"></i> <span data-i18n="cov_btn">${i18n[currentLang]['cov_btn']}</span>`;
+            document.querySelector('[data-i18n="modal_btn"]').parentElement.innerHTML = `<i data-lucide="message-circle"></i> <span data-i18n="modal_btn">${i18n[currentLang]['modal_btn']}</span>`;
+
+            renderServices();
+            refreshIcons();
+            
+            // Actualizar el enlace de WhatsApp base
+            const waBase = "https://wa.me/524421260133?text=";
+            const waMsg = currentLang === 'es' ? "Hola,%20quisiera%20cotizar%20un%20servicio%20a%20domicilio." : "Hello,%20I%20would%20like%20to%20get%20a%20quote%20for%20home%20service.";
+            document.getElementById('btn-whatsapp-tech').href = waBase + waMsg;
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            // Ahora muestra "EN" si está en español, y "ES" si está en inglés.
+            document.getElementById('lang-indicator').innerText = currentLang === 'es' ? 'EN' : 'ES';
+            translateUI();
+        }
+
+        // Modo Oscuro / Claro
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                icon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                icon.setAttribute('data-lucide', 'sun');
+            }
+            refreshIcons();
+        }
+
+        // Renderizar Grid de Servicios
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = '';
+            servicesData.forEach((s, index) => {
+                const delay = index * 100;
+                grid.innerHTML += `
+                    <div onclick="openModal('${s.id}')" class="glass-card reveal cursor-pointer rounded-2xl p-8 text-center flex flex-col h-full group" style="transition-delay: ${delay}ms;">
+                        <div class="w-16 h-16 shrink-0 bg-slate-50 dark:bg-black border border-slate-200 dark:border-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all duration-300 shadow-sm dark:shadow-lg">
+                            <i data-lucide="${s.icon}" class="w-8 h-8 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="text-lg font-black text-brand-navy dark:text-white mb-3 font-tech leading-tight group-hover:text-brand-orange transition-colors">${s.label[currentLang]}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium line-clamp-4 flex-grow">${s.desc[currentLang]}</p>
+                    </div>
+                `;
+            });
+            // Reactivar animaciones de los servicios recién renderizados si están en pantalla
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Modales
+        function openModal(id) {
+            const s = servicesData.find(x => x.id === id);
+            document.getElementById('modal-title').innerText = s.label[currentLang];
+            document.getElementById('modal-desc').innerText = s.desc[currentLang];
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${s.icon}" class="w-8 h-8"></i>`;
+            document.getElementById('modal-details').innerHTML = s.details[currentLang].map(d => `
+                <div class="p-4 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-xl text-sm font-semibold text-brand-navy dark:text-slate-200 flex items-center gap-3 hover:border-brand-orange/30 transition-colors">
+                    <div class="w-6 h-6 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
+                        <span class="text-brand-orange font-black text-xs">✔</span>
+                    </div>
+                    ${d}
+                </div>
+            `).join('');
+            
+            const waMsg = currentLang === 'es' ? `Hola, me interesa: ${s.label['es']}` : `Hi, I'm interested in: ${s.label['en']}`;
+            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=${encodeURIComponent(waMsg)}`;
+            
+            const modal = document.getElementById('service-modal');
+            modal.classList.replace('hidden', 'flex');
+            setTimeout(() => modal.classList.add('opacity-100'), 10);
+            
+            refreshIcons();
+            if(typeof gtag !== 'undefined') gtag('event', 'ver_detalle_servicio', { event_category: 'Servicios', event_label: 'modal_' + id });
+        }
+
+        function closeModal() { 
+            const modal = document.getElementById('service-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => modal.classList.replace('flex', 'hidden'), 200);
+        }
+
+        // Navegación
         function navigate(sectionId) {
             document.querySelectorAll('.section-container').forEach(el => el.classList.replace('block', 'hidden'));
-            document.getElementById('sec-' + sectionId).classList.replace('hidden', 'block');
+            const targetSection = document.getElementById('sec-' + sectionId);
+            targetSection.classList.replace('hidden', 'block');
+            
             document.querySelectorAll('.nav-link').forEach(el => {
-                if(el.dataset.target === sectionId) el.classList.replace('text-slate-400', 'text-cyan-400');
-                else el.classList.replace('text-cyan-400', 'text-slate-400');
+                if(el.dataset.target === sectionId) {
+                    el.classList.remove('text-slate-500', 'dark:text-slate-400');
+                    el.classList.add('text-brand-orange');
+                } else {
+                    el.classList.remove('text-brand-orange');
+                    el.classList.add('text-slate-500', 'dark:text-slate-400');
+                }
             });
-            window.scrollTo(0,0);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            targetSection.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => el.classList.add('active'), 50);
+            });
+
+            if(typeof gtag !== 'undefined') gtag('event', 'vista_seccion', { event_category: 'Navegacion', event_label: 'seccion_' + sectionId });
         }
 
-        // Reloj y Fecha para la Barra de Tareas
+        // Utilidades Varias
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
         function updateTaskbar() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-            const dateStr = now.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            document.getElementById('taskbar-time').textContent = timeStr;
-            document.getElementById('taskbar-date').textContent = dateStr;
+            document.getElementById('taskbar-time').textContent = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('taskbar-date').textContent = now.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
         }
-        setInterval(updateTaskbar, 1000);
-        updateTaskbar();
 
-        // Detección de Ubicación por IP
         async function detectLocation() {
             try {
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
                 if (data.city) {
-                    document.getElementById('location-display').innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${data.city}, ${data.country_code}`;
-                    refreshIcons();
+                    const locText = document.querySelector('[data-i18n="task_locating"]');
+                    locText.removeAttribute('data-i18n'); // quitar data-i18n para que el traductor no lo sobreescriba
+                    locText.textContent = `${data.city}, ${data.country_code}`;
                 }
             } catch (e) {
-                document.getElementById('location-display').innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> Conectado`;
-                refreshIcons();
+                document.querySelector('[data-i18n="task_locating"]').setAttribute('data-i18n', 'task_online');
+                translateUI();
             }
         }
-        detectLocation();
 
-        // Datos amigables
-        const services = [
-            { 
-                id: 'pc-repair', 
-                label: 'Reparación de PC y Laptops', 
-                icon: 'laptop', 
-                desc: '¿Tu computadora está lenta o no enciende? Restauramos su potencia y eliminamos fallas electrónicas.', 
-                details: ['Optimización de velocidad', 'Cambio de piezas y hardware', 'Limpieza y mantenimiento', 'Eliminación de virus'] 
-            },
-            { 
-                id: 'wifi-pro', 
-                label: 'Mejora de Internet', 
-                icon: 'wifi', 
-                desc: 'Llevamos el Wi-Fi a cada rincón. Solucionamos problemas de señal y lentitud en tu red.', 
-                details: ['Extensión de cobertura Wi-Fi', 'Redes por cable (LAN)', 'Seguridad de conexión', 'Configuración de routers'] 
-            },
-            { 
-                id: 'remote-help', 
-                label: 'Soporte Remoto', 
-                icon: 'monitor-check', 
-                desc: 'Te ayudamos a distancia si tienes una póliza de soporte activa. Rápido y sin complicaciones.', 
-                details: ['Atención inmediata online', 'Configuración de programas', 'Mantenimiento preventivo', 'Exclusivo clientes registrados'] 
-            },
-            { 
-                id: 'visit-tech', 
-                label: 'Visita Técnica', 
-                icon: 'home', 
-                desc: 'Si lo prefieres, acudimos a tu oficina o empresa para darte soporte técnico profesional en sitio.', 
-                details: ['Asistencia para negocios', 'Instalación de estaciones', 'Diagnóstico presencial', 'Agendado bajo cita'] 
-            }
-        ];
-
-        const grid = document.getElementById('services-grid');
-        services.forEach(s => {
-            grid.innerHTML += `
-                <div onclick="openModal('${s.id}')" class="glass-card group cursor-pointer rounded-xl p-8 text-center border border-white/5">
-                    <div class="w-14 h-14 bg-slate-950 border border-white/10 rounded-xl flex items-center justify-center mb-6 mx-auto text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all">
-                        <i data-lucide="${s.icon}" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="text-base font-extrabold uppercase text-white mb-3 font-tech leading-tight">${s.label}</h3>
-                    <p class="text-slate-100 text-xs leading-relaxed font-medium line-clamp-3">${s.desc}</p>
-                </div>
-            `;
-        });
-        refreshIcons();
-
-        function openModal(id) {
-            const s = services.find(x => x.id === id);
-            document.getElementById('modal-title').innerText = s.label;
-            document.getElementById('modal-desc').innerText = s.desc;
-            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${s.icon}" class="w-8 h-8"></i>`;
-            document.getElementById('modal-details').innerHTML = s.details.map(d => `
-                <div class="p-3 bg-slate-950 border border-white/10 rounded-lg text-xs font-bold text-slate-100 flex items-center gap-3">
-                    <span class="text-cyan-400 font-black">✔</span> ${d}
-                </div>
-            `).join('');
-            document.getElementById('modal-cta').href = `https://wa.me/524421260133?text=Hola Xidito Tech! Me interesa agendar una cita para: ${s.label}`;
-            document.getElementById('service-modal').classList.replace('hidden', 'flex');
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', () => {
             refreshIcons();
-        }
-
-        function closeModal() { document.getElementById('service-modal').classList.replace('flex', 'hidden'); }    // ====================================================   // GOOGLE ANALYTICS 4 - XIDITO TECH - 9 MEDIDORES   // ====================================================    // 1. VISTAS DE SECCIÓN ESPECÍFICA   const _origNavigate = navigate;   function navigate(sectionId) {     _origNavigate(sectionId);     if(typeof gtag !== 'undefined') {       gtag('event', 'vista_seccion', {         event_category: 'Navegacion',         event_label: 'seccion_' + sectionId       });     }   }    // 2. BOUNCE RATE   var techStartTime = Date.now();   setTimeout(function() {     if(typeof gtag !== 'undefined') {       gtag('event', 'engaged_10s', {         event_category: 'Engagement',         event_label: 'Usuario activo mas de 10 segundos'       });     }   }, 10000);   window.addEventListener('beforeunload', function() {     var dur = Math.round((Date.now() - techStartTime) / 1000);     if(typeof gtag !== 'undefined') {       gtag('event', 'session_duracion', {         event_category: 'Engagement',         event_label: dur >= 10 ? 'engaged_mas_10s' : 'rebote_menos_10s',         value: dur       });     }   });    // 3. SCROLL DEPTH: 25%, 50%, 75%, 100%   var techScrollMarks = { 25: false, 50: false, 75: false, 100: false };   window.addEventListener('scroll', function() {     var scrollTop = window.scrollY || document.documentElement.scrollTop;     var docHeight = document.documentElement.scrollHeight - window.innerHeight;     if(docHeight <= 0) return;     var pct = Math.round((scrollTop / docHeight) * 100);     [25, 50, 75, 100].forEach(function(mark) {       if(pct >= mark && !techScrollMarks[mark]) {         techScrollMarks[mark] = true;         if(typeof gtag !== 'undefined') {           gtag('event', 'scroll_depth', {             event_category: 'Scroll',             event_label: mark + '% de la pagina',             value: mark           });         }       }     });   });    // 4. FUENTE DE TRÁFICO (UTM)   (function() {     var p = new URLSearchParams(window.location.search);     var src = p.get('utm_source') || 'directo';     var med = p.get('utm_medium') || 'ninguno';     var cam = p.get('utm_campaign') || 'sin_campania';     if(typeof gtag !== 'undefined') {       gtag('event', 'fuente_trafico', {         event_category: 'Trafico',         event_label: src + ' / ' + med,         utm_source: src,         utm_medium: med,         utm_campaign: cam       });     }   })();    // 5. USUARIOS RECURRENTES   (function() {     var visitas = parseInt(localStorage.getItem('tech_visitas') || '0') + 1;     localStorage.setItem('tech_visitas', visitas);     if(typeof gtag !== 'undefined') {       gtag('event', visitas > 1 ? 'usuario_recurrente' : 'usuario_nuevo', {         event_category: 'Usuario',         event_label: 'Visita numero ' + visitas,         value: visitas       });     }   })();    // 6. GEOLOCALIZACIÓN   (function() {     if(navigator.geolocation) {       navigator.geolocation.getCurrentPosition(function(pos) {         if(typeof gtag !== 'undefined') {           gtag('event', 'geolocalizacion_visitante', {             event_category: 'Geografia',             event_label: 'lat:' + pos.coords.latitude.toFixed(2) + '_lng:' + pos.coords.longitude.toFixed(2)           });         }       });     }   })();    // 7. CONVERSIÓN WhatsApp (botón contacto)   document.addEventListener('DOMContentLoaded', function() {     var btnWA = document.getElementById('btn-whatsapp-tech');     if(btnWA) {       btnWA.addEventListener('click', function() {         if(typeof gtag !== 'undefined') {           gtag('event', 'conversion_whatsapp', {             event_category: 'Conversion',             event_label: 'WhatsApp Agendar Cita - Xidito Tech',             value: 1           });         }       });     }   });    // 8. CONVERSIÓN WhatsApp desde modal de servicio   const _origOpenModal = openModal;   function openModal(id) {     _origOpenModal(id);     if(typeof gtag !== 'undefined') {       gtag('event', 'ver_detalle_servicio', {         event_category: 'Servicios',         event_label: 'modal_' + id       });     }   }    // 9. DESCARGA / PORTAFOLIO - Click en cualquier link externo   document.addEventListener('click', function(e) {     var el = e.target.closest('a[href]');     if(el) {       var href = el.getAttribute('href') || '';       if(href.includes('wa.me') && el.id !== 'btn-whatsapp-tech') {         if(typeof gtag !== 'undefined') {           gtag('event', 'conversion_whatsapp_modal', {             event_category: 'Conversion',             event_label: 'WhatsApp desde modal de servicio',             value: 1           });         }       }     }   });
+            renderServices();
+            initScrollAnimations();
+            setInterval(updateTaskbar, 1000);
+            updateTaskbar();
+            detectLocation();
+            
+            // Checar preferencia del sistema para dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleTheme(); // Inicia en oscuro si su compu está en oscuro
+            }
+        });
+        
     </script>
 </body>
 </html>
